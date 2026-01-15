@@ -1,0 +1,52 @@
+﻿@model BoardGameDB.ViewModels.GameVM
+
+<h2>Yeni Oyun Ekle</h2>
+
+<form asp-controller="BoardGame" asp-action="Create" method="post">
+
+    @* HATA ÖZETİ: Tüm hataları en üstte liste olarak gösterir *@
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label class="form-label">Oyun Adı</label>
+        <input asp-for="Name" class="form-control" />
+        @* HATA MESAJI: Sadece bu alanla ilgili hatayı gösterir *@
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Yayıncı (Publisher)</label>
+        <input asp-for="Publisher" class="form-control" />
+        <span asp-validation-for="Publisher" class="text-danger"></span>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Minimum Oyuncu</label>
+            <input asp-for="MinPlayers" type="number" class="form-control" />
+            <span asp-validation-for="MinPlayers" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Maksimum Oyuncu</label>
+            <input asp-for="MaxPlayers" type="number" class="form-control" />
+            <span asp-validation-for="MaxPlayers" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Kategori</label>
+        <select asp-for="CategoryId" class="form-select"
+                asp-items="@(new SelectList(Model.CategoryList, "Id", "Name"))">
+            <option value="">-- Kategori Seçiniz --</option>
+        </select>
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+
+    <div class="form-check mb-3">
+        <input asp-for="IsAvailable" class="form-check-input" type="checkbox" />
+        <label class="form-check-label">Rafta Mevcut mu?</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+    <a asp-action="Index" class="btn btn-secondary">İptal</a>
+</form>

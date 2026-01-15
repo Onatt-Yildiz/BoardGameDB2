@@ -1,0 +1,65 @@
+﻿@model BoardGameDB.ViewModels.GameSearchVM
+
+<h2>Oyun Ara</h2>
+
+<div class="card p-3 mb-4">
+    <form asp-controller="BoardGame" asp-action="Search" method="post">
+        <div class="row">
+            <div class="col-md-5">
+                <label class="form-label">Oyun Adı</label>
+                <input asp-for="Name" class="form-control" placeholder="Aranacak oyun..." />
+            </div>
+
+            <div class="col-md-5">
+                <label class="form-label">Kategori</label>
+                <select asp-for="CategoryId" class="form-select"
+                        asp-items="@(new SelectList(Model.CategoryList, "Id", "Name"))">
+                    <option value="0">-- Tümü --</option>
+                </select>
+            </div>
+
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">Ara</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@if (Model.SearchResult != null && Model.SearchResult.Any())
+{
+    <h3>Arama Sonuçları</h3>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Oyun Adı</th>
+                <th>Kategori</th>
+                <th>Oyuncu Sayısı</th>
+                <th>Durum</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var game in Model.SearchResult)
+            {
+                <tr>
+                    <td>@game.Name</td>
+                    <td>@game.CategoryName</td>
+                    <td>@game.PlayerRange</td>
+                    <td>
+                        @if (game.Status == "Rafta")
+                        {
+                            <span class="badge bg-success">Rafta</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark">Ödünçte</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Model.SearchResult != null)
+{
+    <div class="alert alert-info">Aradığınız kriterlere uygun oyun bulunamadı.</div>
+}

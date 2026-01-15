@@ -1,0 +1,83 @@
+﻿@using BoardGameDB.ViewModels
+@using Microsoft.AspNetCore.Http
+@model List<GameListVM>
+
+@{
+    ViewData["Title"] = "Oyun Listesi";
+    int? roleId = Context.Session.GetInt32("RoleId");
+}
+
+<div class="d-flex justify-content-between align-items-center mt-3">
+    <h2>Masa Oyunu Koleksiyonu</h2>
+
+    
+    @if (roleId == 1)
+    {
+        <a asp-controller="BoardGame" asp-action="Create" class="btn btn-primary">
+            <i class="fa fa-plus"></i> + Yeni Oyun Ekle
+        </a>
+    }
+</div>
+<hr />
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-hover table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Oyun Adı</th>
+                <th>Kategori</th>
+                <th>Oyuncu Aralığı</th>
+                <th>Durum</th>
+                <th style="width: 200px;">İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td><span class="badge bg-info text-dark">@item.CategoryName</span></td>
+                    <td>@item.PlayerRange</td>
+                    <td>
+                        @if (item.Status == "Rafta")
+                        {
+                            <span class="badge bg-success">Rafta</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Ödünçte</span>
+                        }
+                    </td>
+                    <td>
+                        @* SADECE ADMİNLER DÜZENLEME VE SİLME BUTONLARINI GÖRSÜN *@
+                        @if (roleId == 1)
+                        {
+                            <div class="btn-group" role="group">
+                                <a asp-controller="BoardGame" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning text-dark">
+                                    Düzenle
+                                </a>
+
+                                <a asp-controller="BoardGame" asp-action="Remove" asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-danger"
+                                   onclick="return confirm('@item.Name oyununu silmek istediğinize emin misiniz?');">
+                                    Sil
+                                </a>
+                            </div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-warning">
+        Henüz eklenmiş bir oyun yok.
+        @if (roleId == 1)
+        {
+            <span>Yukarıdaki "Yeni Oyun Ekle" butonunu kullanarak başlayabilirsiniz.</span>
+        }
+    </div>
+}

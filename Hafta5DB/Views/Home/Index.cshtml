@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="text-center mt-5">
+    <h1 class="display-4">Hoş Geldiniz!</h1>
+    <p>Masa oyunu yönetim paneline başarıyla giriş yaptınız.</p>
+    <hr />
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Oyunlar</h5>
+                    <p class="card-text">Koleksiyondaki oyunları listele ve yönet.</p>
+                    <a asp-controller="BoardGame" asp-action="Index" class="btn btn-primary">Oyunlara Git</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Hesap</h5>
+                    <p class="card-text">Güvenli çıkış yap.</p>
+                    <a asp-controller="Login" asp-action="Logout" class="btn btn-danger">Çıkış Yap</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

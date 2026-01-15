@@ -1,0 +1,45 @@
+﻿using System;
+
+@model BoardGameDB.ViewModels.GameVM
+
+<h2> Oyunu Düzenle</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" name="id" value="@ViewBag.Id" />
+
+    <div class= "mb-3" >
+        < label class= "form-label" > Oyun Adı </ label >
+        < input asp -for= "Name" class= "form-control" />
+    </ div >
+
+    < div class= "mb-3" >
+        < label class= "form-label" > Yayıncı </ label >
+        < input asp -for= "Publisher" class= "form-control" />
+    </ div >
+
+    < div class= "row" >
+        < div class= "col-md-6 mb-3" >
+            < label class= "form-label" > Min Oyuncu </ label >
+            < input asp -for= "MinPlayers" class= "form-control" />
+        </ div >
+        < div class= "col-md-6 mb-3" >
+            < label class= "form-label" > Max Oyuncu </ label >
+            < input asp -for= "MaxPlayers" class= "form-control" />
+        </ div >
+    </ div >
+
+    < div class= "mb-3" >
+        < label class= "form-label" > Kategori </ label >
+        < select asp -for= "CategoryId" class= "form-select"
+                asp - items = "@(new SelectList(Model.CategoryList, "Id", "Name"))">
+        </select>
+    </div>
+
+    <div class= "form-check mb-3" >
+        < input asp -for= "IsAvailable" class= "form-check-input" />
+        < label class= "form-check-label" > Rafta Mevcut </ label >
+    </ div >
+
+    < button type = "submit" class= "btn btn-primary" > Güncelle </ button >
+    < a asp - action = "Index" class= "btn btn-secondary" > İptal </ a >
+</ form >
