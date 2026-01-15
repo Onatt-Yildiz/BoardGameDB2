@@ -32,6 +32,9 @@ This project is a secure and user-friendly data management panel developed using
 * **Other:** REST API, Identity (Authentication & Authorization)
 
 ---
+##  Screenshots
+<img width="1891" height="830" alt="image" src="https://github.com/user-attachments/assets/beebc9a8-0f0f-4f60-a5bd-bcdbe422cf6d" />
+
 
 ##  Installation
 
